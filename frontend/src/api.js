@@ -59,6 +59,7 @@ export const api = {
   forgotPassword: (b) => request("/auth/forgot-password", { method: "POST", body: b, auth: false }),
   resetPassword: (b) => request("/auth/reset-password", { method: "POST", body: b, auth: false }),
 
+  logout: () => request("/auth/logout", { method: "POST" }),
   me: () => request("/users/me"),
   updateMe: (b) => request("/users/me", { method: "PUT", body: b }),
   changePassword: (b) => request("/users/change-password", { method: "POST", body: b }),

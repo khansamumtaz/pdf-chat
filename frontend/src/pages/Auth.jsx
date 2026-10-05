@@ -250,7 +250,7 @@ export function ResetPassword() {
         <Notice kind="success">{info}</Notice>
         <Submit loading={loading} loadingText="Resetting...">Reset password</Submit>
       </form>
-      <p className="switch"><Link to="/forgot">Send a new code</Link></p>
+      <p className="switch"><Link to="/forgot">Send a new code</Link> | <Link to="/login">Back to log in</Link></p>
     </Shell>
   );
 }

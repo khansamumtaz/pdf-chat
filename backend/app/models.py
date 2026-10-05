@@ -20,7 +20,7 @@ class User(Base):
 class EmailOTP(Base):
     __tablename__ = "email_otps"
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False)
     otp_hash = Column(String(64), nullable=False)
     expires_at = Column(DateTime(timezone=True), nullable=False)
     used = Column(Boolean, default=False, nullable=False)
@@ -29,7 +29,7 @@ class EmailOTP(Base):
 class PasswordResetOTP(Base):
     __tablename__ = "password_reset_otps"
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False)
     otp_hash = Column(String(64), nullable=False)
     expires_at = Column(DateTime(timezone=True), nullable=False)
     used = Column(Boolean, default=False, nullable=False)
@@ -60,3 +60,8 @@ class ChatMessage(Base):
     question = Column(Text, nullable=False)
     answer = Column(Text, nullable=False)
     created_at = Column(DateTime(timezone=True), default=utcnow)
+class RevokedToken(Base):
+    __tablename__ = "revoked_tokens"
+    id = Column(Integer, primary_key=True)
+    jti = Column(String(64), unique=True, index=True, nullable=False)
+    expires_at = Column(DateTime(timezone=True), nullable=False)

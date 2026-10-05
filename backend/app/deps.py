@@ -4,7 +4,7 @@ from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from .config import settings
 from .database import get_db
-from .models import User
+from .models import User, RevokedToken
 
 bearer = HTTPBearer()
 
@@ -17,6 +17,9 @@ def get_current_user(
         user_id = int(payload["sub"])
     except (JWTError, KeyError, ValueError):
         raise HTTPException(401, "Invalid or expired token")
+    jti = payload.get("jti")
+    if jti and db.query(RevokedToken).filter(RevokedToken.jti == jti).first():
+        raise HTTPException(401, "Token has been revoked. Please log in again.")
     user = db.get(User, user_id)
     if not user or not user.is_verified:
         raise HTTPException(401, "User not found")

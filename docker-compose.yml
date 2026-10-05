@@ -16,8 +16,8 @@ services:
 
   mcp:
     build: ./mcp_server
-    ports:
-      - "8001:8001"
+    expose:
+      - "8001"
 
   backend:
     build: ./backend

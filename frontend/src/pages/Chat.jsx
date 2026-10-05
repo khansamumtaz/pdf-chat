@@ -77,6 +77,7 @@ export default function Chat() {
         <h1>{doc.filename}</h1>
       </div>
 
+      <h2 className="section-title">Chat history</h2>
       <div className="messages" aria-live="polite">
         {items.length === 0 && (
           <p className="muted empty">

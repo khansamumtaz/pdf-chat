@@ -1,5 +1,5 @@
 import { Navigate, NavLink, Link, Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import { clearToken, getToken } from "./api";
+import { api, clearToken, getToken } from "./api";
 import { Signup, VerifyEmail, Login, ForgotPassword, ResetPassword } from "./pages/Auth.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Profile from "./pages/Profile.jsx";
@@ -7,7 +7,12 @@ import Chat from "./pages/Chat.jsx";
 
 function Layout() {
   const nav = useNavigate();
-  function logout() {
+  async function logout() {
+    try {
+      await api.logout();
+    } catch {
+      // the token may already be invalid; we still clear it locally
+    }
     clearToken();
     nav("/login");
   }

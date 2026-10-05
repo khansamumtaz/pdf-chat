@@ -52,3 +52,14 @@ class DocumentOut(BaseModel):
 class UploadOut(BaseModel):
     uploaded: list[DocumentOut]
     errors: list[str]
+class ChatIn(BaseModel):
+    document_id: int
+    question: str = Field(min_length=1, max_length=1000)
+
+class ChatOut(BaseModel):
+    id: int
+    question: str
+    answer: str
+    created_at: datetime
+    tools_used: list[str] = []
+    model_config = {"from_attributes": True}

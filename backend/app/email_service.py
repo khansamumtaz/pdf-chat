@@ -1,18 +1,10 @@
-import logging
 import smtplib
 from email.message import EmailMessage
 from .config import settings
 
-logger = logging.getLogger("uvicorn.error")
-
-def _smtp_ready() -> bool:
-    u, p = settings.SMTP_USER, settings.SMTP_APP_PASSWORD
-    return bool(u and p) and "your_" not in u and "your_" not in p
-
 def send_email(to: str, subject: str, body: str):
-    if not _smtp_ready():
-        logger.warning("SMTP NOT CONFIGURED. Email to %s | %s | %s", to, subject, body)
-        return
+    if not settings.SMTP_USER or not settings.SMTP_APP_PASSWORD:
+        raise RuntimeError("SMTP is not configured")
     msg = EmailMessage()
     msg["From"] = settings.SMTP_USER
     msg["To"] = to

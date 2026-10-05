@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     SMTP_APP_PASSWORD: str = ""
     GEMINI_API_KEY: str = ""
     GEMINI_CHAT_MODEL: str = "gemini-flash-latest"
+    GEMINI_FALLBACK_MODEL: str = "gemini-flash-lite-latest"
     MCP_SERVER_URL: str = "http://mcp:8001"
     OTP_EXPIRE_MINUTES: int = 10
 
